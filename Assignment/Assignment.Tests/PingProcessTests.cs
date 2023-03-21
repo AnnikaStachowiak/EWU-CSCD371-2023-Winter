@@ -111,7 +111,7 @@ public class PingProcessTests
         {
             result.Wait();
         }
-        catch (AggregateException ex)
+        catch (AggregateException exception)
         {
             throw exception.Flatten().InnerException!;
         }
@@ -131,12 +131,8 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-       // PingResult result = default;
-        // Test Sut.RunLongRunningAsync("localhost");
-        ProcessStartInfo startInfo = new("ping", "localhost");
-        Task<int> task = Sut.RunLongRunningAsync(startInfo);
-        Assert.AreEqual<int>(0, task.Result);
-        //AssertValidPingOutput(result);
+       PingResult result = await Sut.RunLongRunningAsync("localhost");
+       AssertValidPingOutput(result);
     }
 
     [TestMethod]
